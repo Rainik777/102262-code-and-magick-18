@@ -66,10 +66,10 @@ window.renderStatistics = function (ctx, names, times) {
         STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
         STAT_CLOUD_HEIGHT
     );
-    if (i === 0) {
+    if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       ctx.fillRect(
-          STAT_CLOUD_X + statBlock.gap,
+          STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
           STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
           statBlock.width,
           (statBlock.height * times[i]) / maxTime
