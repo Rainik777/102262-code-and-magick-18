@@ -23,7 +23,7 @@ var COLOR = {
   red: 'rgba(255, 0, 0, 1)',
 };
 // для центровки текста в облаке статистики
-var STAT_TEXT_GAP = STAT_CLOUD_X + 2 * GAP;
+var STAT_TEXT_GAP = STAT_CLOUD_X + 3 * GAP;
 
 var STAT_BLOCK = {
   height: 150,
@@ -52,8 +52,8 @@ window.renderStatistics = function (ctx, names, times) {
   var maxTime = Math.max.apply(null, times);
 
   ctx.textBaseline = 'hanging';
-  ctx.fillText('Ура вы победили!', STAT_TEXT_GAP, STAT_CLOUD_Y + GAP);
-  ctx.fillText('Список результатов:', STAT_TEXT_GAP, STAT_CLOUD_Y + 3 * GAP);
+  ctx.fillText('Ура вы победили!', STAT_TEXT_GAP, STAT_CLOUD_Y + 2 * GAP);
+  ctx.fillText('Список результатов:', STAT_TEXT_GAP, STAT_CLOUD_Y + 4 * GAP);
 
   ctx.textBaseline = 'alphabetic';
   for (var i = 0; i < names.length; i++) {
