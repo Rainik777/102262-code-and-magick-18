@@ -25,7 +25,7 @@ var COLOR = {
 // для центровки текста в облаке статистики
 var STAT_CLOUD_CENTER = (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2 - 2 * GAP;
 
-var statBlock = {
+var STAT_BLOCK = {
   height: 150,
   width: 40,
   gap: 50
@@ -57,27 +57,28 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.textBaseline = 'alphabetic';
   for (var i = 0; i < names.length; i++) {
-    var statBlockHeight = (statBlock.height * times[i]) / maxTime;
+    var statBlockHeight = (STAT_BLOCK.height * times[i]) / maxTime;
+    var statBlockGap = STAT_CLOUD_X + STAT_BLOCK.gap * (1 + i) + STAT_BLOCK.width * i;
 
     ctx.fillStyle = COLOR.black;
     ctx.fillText(
         names[i],
-        STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
+        STAT_CLOUD_X + STAT_BLOCK.gap * (i + 1) + STAT_BLOCK.width * i,
         STAT_CLOUD_HEIGHT
     );
 
     ctx.fillStyle = (names[i] === 'Вы') ? COLOR.red : generateColor(HUE, MIN_SATURATION, MAX_SATURATION, LIGHTNESS);
 
     ctx.fillRect(
-        STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
+        statBlockGap,
         STAT_CLOUD_HEIGHT - GAP * 2 - statBlockHeight,
-        statBlock.width,
+        STAT_BLOCK.width,
         statBlockHeight
     );
     ctx.fillStyle = COLOR.black;
     ctx.fillText(
         Math.floor(times[i]),
-        STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
+        statBlockGap,
         STAT_CLOUD_HEIGHT - GAP * 3 - statBlockHeight
     );
   }
