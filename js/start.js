@@ -15,6 +15,13 @@ var MIN_SATURATION = 20; // для генератора цвета, min = 0
 var MAX_SATURATION = 90; // для генератора цвета, max = 0
 var HUE = 240; // для генератора цвета, 240 - синий цвет
 var LIGHTNESS = '50%'; // для генератора цвета, яркость 50% - нормальный цвет
+// цвета в константах
+var COLOR = {
+  black: '#000',
+  blackTransperant: 'rgba(0, 0, 0, 0.7)',
+  white: '#fff',
+  red: 'rgba(255, 0, 0, 1)',
+};
 
 var statBlock = {
   height: 150,
@@ -35,10 +42,10 @@ var renderCloud = function (ctx, x, y, color) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, STAT_CLOUD_X + GAP, STAT_CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, STAT_CLOUD_X, STAT_CLOUD_Y, '#fff');
+  renderCloud(ctx, STAT_CLOUD_X + GAP, STAT_CLOUD_Y + GAP, COLOR.blackTransperant);
+  renderCloud(ctx, STAT_CLOUD_X, STAT_CLOUD_Y, COLOR.white);
 
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = COLOR.black;
 
   var maxTime = Math.max.apply(null, times);
 
@@ -48,21 +55,21 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.textBaseline = 'alphabetic';
   for (var i = 0; i < names.length; i++) {
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = COLOR.black;
     ctx.fillText(
         names[i],
         STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
         STAT_CLOUD_HEIGHT
     );
     if (names[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      ctx.fillStyle = COLOR.red;
       ctx.fillRect(
           STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
           STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
           statBlock.width,
           (statBlock.height * times[i]) / maxTime
       );
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = COLOR.black;
       ctx.fillText(
           Math.floor(times[i]),
           STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
@@ -76,7 +83,7 @@ window.renderStatistics = function (ctx, names, times) {
           statBlock.width,
           (statBlock.height * times[i]) / maxTime
       );
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = COLOR.black;
       ctx.fillText(
           Math.floor(times[i]),
           STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
