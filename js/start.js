@@ -23,7 +23,7 @@ var COLOR = {
   red: 'rgba(255, 0, 0, 1)',
 };
 // для центровки текста в облаке статистики
-var STAT_CLOUD_CENTER = (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2;
+var STAT_CLOUD_CENTER = (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2 - 2 * GAP;
 
 var statBlock = {
   height: 150,
@@ -32,10 +32,10 @@ var statBlock = {
 };
 
 // Генерирует цвет отдельного блока статистики
-var generateColor = function () {
-  var saturation = Math.floor(Math.random() * (MAX_SATURATION - MIN_SATURATION) + MIN_SATURATION) + '%';
+var generateColor = function (hue, minSaturation, maxSaturation, lightness) {
+  var saturation = Math.floor(Math.random() * (maxSaturation - minSaturation) + minSaturation) + '%';
 
-  return ('hsl(' + HUE + ', ' + saturation + ', ' + LIGHTNESS + ')');
+  return ('hsl(' + hue + ', ' + saturation + ', ' + lightness + ')');
 };
 
 var renderCloud = function (ctx, x, y, color) {
@@ -66,7 +66,7 @@ window.renderStatistics = function (ctx, names, times) {
         STAT_CLOUD_HEIGHT
     );
 
-    ctx.fillStyle = (names[i] === 'Вы') ? COLOR.red : generateColor();
+    ctx.fillStyle = (names[i] === 'Вы') ? COLOR.red : generateColor(HUE, MIN_SATURATION, MAX_SATURATION, LIGHTNESS);
 
     ctx.fillRect(
         STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
