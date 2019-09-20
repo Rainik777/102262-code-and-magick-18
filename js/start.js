@@ -34,25 +34,13 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, STAT_CLOUD_WIDTH, STAT_CLOUD_HEIGHT);
 };
 
-var getMaxElement = function (arr) {
-  var maxElement = arr[0];
-
-  for (var i = 1; i < arr.length; i++) {
-    if (arr[i] > maxElement) {
-      maxElement = arr[i];
-    }
-  }
-
-  return maxElement;
-};
-
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, STAT_CLOUD_X + GAP, STAT_CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, STAT_CLOUD_X, STAT_CLOUD_Y, '#fff');
 
   ctx.fillStyle = '#000';
 
-  var maxTime = getMaxElement(times);
+  var maxTime = Math.max.apply(null, times);
 
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2, STAT_CLOUD_Y + GAP);
