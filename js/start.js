@@ -22,6 +22,8 @@ var COLOR = {
   white: '#fff',
   red: 'rgba(255, 0, 0, 1)',
 };
+// для центровки текста в облаке статистики
+var STAT_CLOUD_CENTER = (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2;
 
 var statBlock = {
   height: 150,
@@ -50,8 +52,8 @@ window.renderStatistics = function (ctx, names, times) {
   var maxTime = Math.max.apply(null, times);
 
   ctx.textBaseline = 'hanging';
-  ctx.fillText('Ура вы победили!', (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2, STAT_CLOUD_Y + GAP);
-  ctx.fillText('Список результатов:', (STAT_CLOUD_X + STAT_CLOUD_WIDTH) / 2 - 2 * GAP, STAT_CLOUD_Y + 3 * GAP);
+  ctx.fillText('Ура вы победили!', STAT_CLOUD_CENTER, STAT_CLOUD_Y + GAP);
+  ctx.fillText('Список результатов:', STAT_CLOUD_CENTER - 2 * GAP, STAT_CLOUD_Y + 3 * GAP);
 
   ctx.textBaseline = 'alphabetic';
   for (var i = 0; i < names.length; i++) {
@@ -61,34 +63,20 @@ window.renderStatistics = function (ctx, names, times) {
         STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
         STAT_CLOUD_HEIGHT
     );
-    if (names[i] === 'Вы') {
-      ctx.fillStyle = COLOR.red;
-      ctx.fillRect(
-          STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
-          STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
-          statBlock.width,
-          (statBlock.height * times[i]) / maxTime
-      );
-      ctx.fillStyle = COLOR.black;
-      ctx.fillText(
-          Math.floor(times[i]),
-          STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
-          STAT_CLOUD_HEIGHT - GAP * 3 - (statBlock.height * times[i]) / maxTime
-      );
-    } else {
-      ctx.fillStyle = generateColor();
-      ctx.fillRect(
-          STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
-          STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
-          statBlock.width,
-          (statBlock.height * times[i]) / maxTime
-      );
-      ctx.fillStyle = COLOR.black;
-      ctx.fillText(
-          Math.floor(times[i]),
-          STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
-          STAT_CLOUD_HEIGHT - GAP * 3 - (statBlock.height * times[i]) / maxTime
-      );
-    }
+
+    ctx.fillStyle = (names[i] === 'Вы') ? COLOR.red : generateColor();
+
+    ctx.fillRect(
+        STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
+        STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
+        statBlock.width,
+        (statBlock.height * times[i]) / maxTime
+    );
+    ctx.fillStyle = COLOR.black;
+    ctx.fillText(
+        Math.floor(times[i]),
+        STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
+        STAT_CLOUD_HEIGHT - GAP * 3 - (statBlock.height * times[i]) / maxTime
+    );
   }
 };
