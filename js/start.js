@@ -57,6 +57,8 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.textBaseline = 'alphabetic';
   for (var i = 0; i < names.length; i++) {
+    var statBlockHeight = (statBlock.height * times[i]) / maxTime;
+
     ctx.fillStyle = COLOR.black;
     ctx.fillText(
         names[i],
@@ -68,15 +70,15 @@ window.renderStatistics = function (ctx, names, times) {
 
     ctx.fillRect(
         STAT_CLOUD_X + statBlock.gap * (1 + i) + statBlock.width * i,
-        STAT_CLOUD_HEIGHT - GAP * 2 - (statBlock.height * times[i]) / maxTime,
+        STAT_CLOUD_HEIGHT - GAP * 2 - statBlockHeight,
         statBlock.width,
-        (statBlock.height * times[i]) / maxTime
+        statBlockHeight
     );
     ctx.fillStyle = COLOR.black;
     ctx.fillText(
         Math.floor(times[i]),
         STAT_CLOUD_X + statBlock.gap * (i + 1) + statBlock.width * i,
-        STAT_CLOUD_HEIGHT - GAP * 3 - (statBlock.height * times[i]) / maxTime
+        STAT_CLOUD_HEIGHT - GAP * 3 - statBlockHeight
     );
   }
 };
