@@ -63,7 +63,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle = COLOR.black;
     ctx.fillText(
         names[i],
-        STAT_CLOUD_X + STAT_BLOCK.gap * (i + 1) + STAT_BLOCK.width * i,
+        statBlockGap,
         STAT_CLOUD_HEIGHT
     );
 
