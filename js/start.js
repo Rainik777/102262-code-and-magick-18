@@ -11,6 +11,10 @@ var STAT_CLOUD_HEIGHT = 270;
 var STAT_CLOUD_X = 100;
 var STAT_CLOUD_Y = 10;
 var GAP = 10;
+var MIN_SATURATION = 20; // для генератора цвета, min = 0
+var MAX_SATURATION = 90; // для генератора цвета, max = 0
+var HUE = 240; // для генератора цвета, 240 - синий цвет
+var LIGHTNESS = '50%'; // для генератора цвета, яркость 50% - нормальный цвет
 
 var statBlock = {
   height: 150,
@@ -20,13 +24,9 @@ var statBlock = {
 
 // Генерирует цвет отдельного блока статистики
 var generateColor = function () {
-  var minSaturation = 20; // min 0
-  var maxSaturation = 90; // max 100
-  var hue = 240; // синий цвет
-  var saturation = Math.floor(Math.random() * (maxSaturation - minSaturation) + minSaturation) + '%';
-  var lightness = '50%';
+  var saturation = Math.floor(Math.random() * (MAX_SATURATION - MIN_SATURATION) + MIN_SATURATION) + '%';
 
-  return ('hsl(' + hue + ', ' + saturation + ', ' + lightness + ')');
+  return ('hsl(' + HUE + ', ' + saturation + ', ' + LIGHTNESS + ')');
 };
 
 var renderCloud = function (ctx, x, y, color) {
