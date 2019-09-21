@@ -36,8 +36,6 @@ var generateMyWisards = function (arr, ammount) {
 // генерируем массив магов
 myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
 
-console.log(myWisards);
-
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
