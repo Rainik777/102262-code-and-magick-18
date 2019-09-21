@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var SIMILAR_WIZARDS_AMMOUNT = 4;
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
@@ -16,8 +16,8 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 // возвращает случайный елемент переданного массива
 var generateItem = function (arr) {
-  return arr[Math.floor(Math.random()*arr.length)];
-}
+  return arr[Math.floor(Math.random() * arr.length)];
+};
 
 // пушит магов в массив
 var generateMyWisards = function (arr, ammount) {
@@ -31,7 +31,7 @@ var generateMyWisards = function (arr, ammount) {
     arr.push(newWizard);
   }
   return arr;
-}
+};
 
 // генерируем массив магов
 myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
@@ -44,7 +44,7 @@ var renderWizard = function (wizard) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
   return wizardElement;
-}
+};
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < myWisards.length; i++) {
