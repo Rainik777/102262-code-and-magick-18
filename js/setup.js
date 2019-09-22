@@ -11,13 +11,8 @@ var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template')
 var myWisards = [];
 
 var copyArr = function (arr) {
-  return arr.slice(0, arr.length);
+  return arr.slice();
 };
-
-var wizardNamesCopied = copyArr(WIZARD_NAMES);
-var wizardSurnamesCopied = copyArr(WIZARD_SURNAMES);
-var coatColorsCopied = copyArr(COAT_COLORS);
-var eyesColorsCopied = copyArr(EYES_COLORS);
 
 // возвращает случайный елемент переданного массива, мб даже без повтора
 var generateItem = function (arr) {
@@ -28,14 +23,18 @@ var generateItem = function (arr) {
   return str;
 };
 
-// пушит магов в массив
+// пушит магов в массив из копий
 var generateMyWisards = function (arr, ammount) {
+  var copiedWN = copyArr(WIZARD_NAMES);
+  var copiedWS = copyArr(WIZARD_SURNAMES);
+  var copiedCC = copyArr(COAT_COLORS);
+  var copiedEC = copyArr(EYES_COLORS);
   for (var i = 0; i < ammount; i++) {
     var newWizard = {
-      name: generateItem(wizardNamesCopied),
-      surName: generateItem(wizardSurnamesCopied),
-      coatColor: generateItem(coatColorsCopied),
-      eyesColor: generateItem(eyesColorsCopied)
+      name: generateItem(copiedWN),
+      surName: generateItem(copiedWS),
+      coatColor: generateItem(copiedCC),
+      eyesColor: generateItem(copiedEC)
     };
     arr.push(newWizard);
   }
