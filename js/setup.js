@@ -8,36 +8,36 @@ var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var USER_DIALOG = document.querySelector('.setup');
 var SIMILAR_LIST_ELEMENT = document.querySelector('.setup-similar-list');
 var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-var myWisards = [];
 
-var copyArr = function (arr) {
-  return arr.slice();
+var cloneArray = function (array) {
+  return array.slice();
 };
 
-// возвращает случайный елемент переданного массива, мб даже без повтора
-var generateItem = function (arr) {
-  return arr.splice(Math.floor(Math.random() * arr.length), 1);
+// возвращает случайный елемент переданного массива без повторов
+var getRandomItem = function (array) {
+  return array.splice(Math.floor(Math.random() * array.length), 1);
 };
 
 // пушит магов в массив из копий
-var generateMyWisards = function (arr, ammount) {
-  var copiedWN = copyArr(WIZARD_NAMES);
-  var copiedWS = copyArr(WIZARD_SURNAMES);
-  var copiedCC = copyArr(COAT_COLORS);
-  var copiedEC = copyArr(EYES_COLORS);
+var generateWizardList = function (ammount) {
+  var wizardList = [];
+  var wizardNames = cloneArray(WIZARD_NAMES);
+  var wizardSurnames = cloneArray(WIZARD_SURNAMES);
+  var coatColors = cloneArray(COAT_COLORS);
+  var eyesColors = cloneArray(EYES_COLORS);
   for (var i = 0; i < ammount; i++) {
-    var newWizard = {
-      name: generateItem(copiedWN),
-      surName: generateItem(copiedWS),
-      coatColor: generateItem(copiedCC),
-      eyesColor: generateItem(copiedEC)
+    var wizard = {
+      name: getRandomItem(wizardNames),
+      surName: getRandomItem(wizardSurnames),
+      coatColor: getRandomItem(coatColors),
+      eyesColor: getRandomItem(eyesColors)
     };
-    arr.push(newWizard);
+    wizardList.push(wizard);
   }
-  return arr;
+  return wizardList;
 };
 
-var renderWizard = function (wizard) {
+var prepareWizardElement = function (wizard) {
   var wizardElement = SIMILAR_WIZARD_TEMPLATE.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + ' ' + wizard.surName;
@@ -47,18 +47,16 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var placeWizardsInTemplate = function (arr) {
+var renderWizards = function (arr) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < arr.length; i++) {
-    fragment.appendChild(renderWizard(arr[i]));
+    fragment.appendChild(prepareWizardElement(arr[i]));
   }
   SIMILAR_LIST_ELEMENT.appendChild(fragment);
 };
 
 // генерируем массив магов
-myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
-
-placeWizardsInTemplate(myWisards);
+renderWizards(generateWizardList(SIMILAR_WIZARDS_AMMOUNT));
 
 USER_DIALOG.classList.remove('hidden');
 USER_DIALOG.querySelector('.setup-similar').classList.remove('hidden');
