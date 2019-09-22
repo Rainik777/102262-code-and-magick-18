@@ -16,11 +16,7 @@ var copyArr = function (arr) {
 
 // возвращает случайный елемент переданного массива, мб даже без повтора
 var generateItem = function (arr) {
-  var i = Math.floor(Math.random() * arr.length);
-  var str = arr[i];
-  arr.splice(i, 1);
-
-  return str;
+  return arr.splice(Math.floor(Math.random() * arr.length), 1);;
 };
 
 // пушит магов в массив из копий
