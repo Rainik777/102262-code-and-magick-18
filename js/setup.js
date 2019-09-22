@@ -5,14 +5,21 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-var myWisards = [];
-
 var USER_DIALOG = document.querySelector('.setup');
-
 var SIMILAR_LIST_ELEMENT = document.querySelector('.setup-similar-list');
 var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var myWisards = [];
 
-// возвращает случайный елемент переданного массива
+var copyArr = function (arr) {
+  return arr.slice(0, arr.length);
+};
+
+var wizardNamesCopied = copyArr(WIZARD_NAMES);
+var wizardSurnamesCopied = copyArr(WIZARD_SURNAMES);
+var coatColorsCopied = copyArr(COAT_COLORS);
+var eyesColorsCopied = copyArr(EYES_COLORS);
+
+// возвращает случайный елемент переданного массива, мб даже без повтора
 var generateItem = function (arr) {
   var i = Math.floor(Math.random() * arr.length);
   var str = arr[i];
@@ -25,18 +32,15 @@ var generateItem = function (arr) {
 var generateMyWisards = function (arr, ammount) {
   for (var i = 0; i < ammount; i++) {
     var newWizard = {
-      name: generateItem(WIZARD_NAMES),
-      surName: generateItem(WIZARD_SURNAMES),
-      coatColor: generateItem(COAT_COLORS),
-      eyesColor: generateItem(EYES_COLORS)
+      name: generateItem(wizardNamesCopied),
+      surName: generateItem(wizardSurnamesCopied),
+      coatColor: generateItem(coatColorsCopied),
+      eyesColor: generateItem(eyesColorsCopied)
     };
     arr.push(newWizard);
   }
   return arr;
 };
-
-// генерируем массив магов
-myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
 
 var renderWizard = function (wizard) {
   var wizardElement = SIMILAR_WIZARD_TEMPLATE.cloneNode(true);
@@ -48,11 +52,18 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < myWisards.length; i++) {
-  fragment.appendChild(renderWizard(myWisards[i]));
-}
-SIMILAR_LIST_ELEMENT.appendChild(fragment);
+var placeWizardsInTemplate = function (arr) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < arr.length; i++) {
+    fragment.appendChild(renderWizard(arr[i]));
+  }
+  SIMILAR_LIST_ELEMENT.appendChild(fragment);
+};
+
+// генерируем массив магов
+myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
+
+placeWizardsInTemplate(myWisards);
 
 USER_DIALOG.classList.remove('hidden');
 USER_DIALOG.querySelector('.setup-similar').classList.remove('hidden');
