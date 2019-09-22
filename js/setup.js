@@ -14,7 +14,11 @@ var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template')
 
 // возвращает случайный елемент переданного массива
 var generateItem = function (arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  var i = Math.floor(Math.random() * arr.length);
+  var str = arr[i];
+  arr.splice(i, 1);
+
+  return str;
 };
 
 // пушит магов в массив
