@@ -7,12 +7,10 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var myWisards = [];
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+var USER_DIALOG = document.querySelector('.setup');
 
-var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var SIMILAR_LIST_ELEMENT = document.querySelector('.setup-similar-list');
+var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 // возвращает случайный елемент переданного массива
 var generateItem = function (arr) {
@@ -37,7 +35,7 @@ var generateMyWisards = function (arr, ammount) {
 myWisards = generateMyWisards(myWisards, SIMILAR_WIZARDS_AMMOUNT);
 
 var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+  var wizardElement = SIMILAR_WIZARD_TEMPLATE.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + ' ' + wizard.surName;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -50,4 +48,7 @@ var fragment = document.createDocumentFragment();
 for (var i = 0; i < myWisards.length; i++) {
   fragment.appendChild(renderWizard(myWisards[i]));
 }
-similarListElement.appendChild(fragment);
+SIMILAR_LIST_ELEMENT.appendChild(fragment);
+
+USER_DIALOG.classList.remove('hidden');
+USER_DIALOG.querySelector('.setup-similar').classList.remove('hidden');
