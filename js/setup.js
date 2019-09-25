@@ -8,10 +8,46 @@ var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var USER_DIALOG = document.querySelector('.setup');
 var SIMILAR_LIST_ELEMENT = document.querySelector('.setup-similar-list');
 var SIMILAR_WIZARD_TEMPLATE = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+var SETUP_OPEN = document.querySelector('.setup-open');
+var SETUP = document.querySelector('.setup');
+var SETUP_CLOSE = SETUP.querySelector('.setup-close');
 var cloneArray = function (array) {
   return array.slice();
 };
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+var openPopup = function () {
+  SETUP.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+var closePopup = function () {
+  SETUP.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+SETUP_OPEN.addEventListener('click', function () {
+  openPopup();
+});
+SETUP_OPEN.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+SETUP_CLOSE.addEventListener('click', function () {
+  closePopup();
+});
+SETUP_CLOSE.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    closePopup();
+  }
+});
 
 // возвращает случайный елемент переданного массива без повторов
 var getRandomItem = function (array) {
@@ -58,5 +94,4 @@ var renderWizards = function (arr) {
 // генерируем массив магов
 renderWizards(generateWizardList(SIMILAR_WIZARDS_AMMOUNT));
 
-USER_DIALOG.classList.remove('hidden');
 USER_DIALOG.querySelector('.setup-similar').classList.remove('hidden');
