@@ -116,7 +116,7 @@ var renderWizards = function (arr) {
 };
 
 // изменение цвета
-var changeColor = function (array) {
+var setItemColor = function (array) {
   var arrayCloned = cloneArray(array);
 
   return getRandomItem(arrayCloned);
@@ -124,21 +124,21 @@ var changeColor = function (array) {
 
 // изменение цвета мантии персонажа по нажатию
 wizardCoat.addEventListener('click', function () {
-  var color = changeColor(COAT_COLORS);
+  var color = setItemColor(COAT_COLORS);
   wizardCoat.style.fill = color;
   wizardCoatInput.value = color;
 });
 
 // изменение цвета глаз персонажа по нажатию
 wizardEyes.addEventListener('click', function () {
-  var color = changeColor(EYES_COLORS);
+  var color = setItemColor(EYES_COLORS);
   wizardEyes.style.fill = color;
   wizardEyesInput.value = color;
 });
 
 // изменение цвета файрбола
 wizardFireBall.addEventListener('click', function () {
-  var color = changeColor(FIRE_BALL_COLORS);
+  var color = setItemColor(FIRE_BALL_COLORS);
   wizardFireBall.style.backgroundColor = color;
   wizardFireBallInput.value = color;
 });
