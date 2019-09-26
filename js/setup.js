@@ -22,6 +22,7 @@ var WIZARD_EYES = WIZARD_SETUP.querySelector('.wizard-eyes');
 var WIZARD_EYES_INPUT = WIZARD_SETUP.querySelector('input[name$="eyes-color"]');
 var WIZARD_FIRE_BALL = WIZARD_SETUP.querySelector('.setup-fireball-wrap');
 var WIZARD_FIRE_BALL_INPUT = WIZARD_SETUP.querySelector('input[name$="fireball-color"]');
+var nameByDefault = USER_NAME_INPUT.value;
 
 var cloneArray = function (array) {
   return array.slice();
@@ -70,6 +71,19 @@ USER_NAME_INPUT.addEventListener('invalid', function () {
     USER_NAME_INPUT.setCustomValidity('Обязательное поле');
   } else {
     USER_NAME_INPUT.setCustomValidity('');
+  }
+});
+
+// нажатие кнопки ESC на поле ввода имени не приводит к закрытию формы, вернет дефолтное имя
+// нажатие кнопки ENTER на поле ввода имени не приводит к отправке формы, сохранит введенное имя
+USER_NAME_INPUT.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEY_ESC) {
+    evt.stopPropagation();
+    USER_NAME_INPUT.value = nameByDefault;
+    USER_NAME_INPUT.blur();
+  } else if (evt.keyCode === KEY_ENTER) {
+    evt.stopPropagation();
+    USER_NAME_INPUT.blur();
   }
 });
 
