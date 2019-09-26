@@ -75,13 +75,16 @@ USER_NAME_INPUT.addEventListener('invalid', function () {
 });
 
 // нажатие кнопки ESC на поле ввода имени не приводит к закрытию формы, вернет дефолтное имя
-// нажатие кнопки ENTER на поле ввода имени не приводит к отправке формы, сохранит введенное имя
 USER_NAME_INPUT.addEventListener('keydown', function (evt) {
   if (evt.keyCode === KEY_ESC) {
     evt.stopPropagation();
     USER_NAME_INPUT.value = nameByDefault;
     USER_NAME_INPUT.blur();
-  } else if (evt.keyCode === KEY_ENTER) {
+  }
+});
+// нажатие кнопки ENTER на поле ввода имени не приводит к отправке формы, сохранит введенное имя
+USER_NAME_INPUT.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KEY_ENTER) {
     evt.stopPropagation();
     USER_NAME_INPUT.blur();
   }
